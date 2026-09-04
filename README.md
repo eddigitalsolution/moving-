@@ -1,26 +1,87 @@
-# Moving Services Web Application
+# MOVE. — Industrial Brutalist Relocation & Moving Platform
 
-## 🛠️ Global Skills Applied
+A high-performance, responsive web application for commercial and residential relocation services built with **React 19**, **TypeScript**, **Tailwind CSS**, and **GSAP**. 
 
-This repository enforces global agent standards and architecture guidelines through active Antigravity skills:
-
-1. **[`global-setup`](file:///.agents/rules/project-standards.md)**
-   - Enforces Cloudflare Pages edge security headers (`public/_headers`), synchronized CSP meta tags (`index.html`), SPA route fallback (`public/_redirects`), and form field accessibility (`autoComplete` + unique `id`s).
-2. **[`cloudflare-setup`](file:///.agents/rules/cloudflare-setup.md)**
-   - Configures Cloudflare static hosting deployment parameters (`NODE_VERSION=20`, `dist/` build directory, zero `unsafe-eval` CSP).
-3. **[`compact-ui-design`](file:///.agents/rules/project-standards.md)**
-   - Enforces clean, uncluttered, compact layout rhythm (4px/8px modular grid spacing), restrained font hierarchy, monospaced data tags (`[STATUS: ACCEPTING PICKUPS]`), and single-line navbar text standards.
-4. **Anti-AI Slop Icon Policy**
-   - Strictly prohibits glossy 3D AI slop icons, rainbow sparkle overloads, or clipart clutter. Enforces clean 1.5px/2.0px stroke vector line iconography (Lucide React) in subtle monochrome tones.
+Designed using an **Industrial Brutalist UI/UX System**, high-contrast typography, physics-based interactive box composition engine, and instant volumetric dispatch calculator.
 
 ---
 
-## 📜 Global Setup & Markdown Rules (.md)
+## 🎨 Design Prompt & Vision
 
-This project enforces global agent standards and architecture guidelines through structured Markdown rules across all project domains:
+### Design Aesthetic Prompt:
+> *"Design a modern, ultra-high-contrast Industrial Brutalist moving & relocation web interface for high-end residential and corporate migrations. Use deep monochrome bases (`#0A0A0A`, `#141414`), sharp high-vis amber (`#FF5500`) and industrial yellow (`#FFE600`) accents, razor-sharp 2px/4px border grids, monospace tactical specifications, and brutalist card shadows. Remove generic AI slop icons, soft rounded corners, and pastel colors. Features include interactive GSAP-powered cargo composition engines, instant volumetric move cost calculators, and real-time WhatsApp pre-configured dispatch links."*
 
-- **[`GEMINI.md`](GEMINI.md)**: Main project instruction manifest linking active workspace rules, commands, and architecture standards.
-- **[`.agents/rules/project-standards.md`](.agents/rules/project-standards.md)**: Global project rules covering UI/UX editorial design, React 19 + TypeScript standards, form accessibility (`autoComplete`), CSP security headers, SPA routing, and build/deploy workflows.
-- **[`.agents/rules/cloudflare-setup.md`](.agents/rules/cloudflare-setup.md)**: Global setup rule for Cloudflare Pages & Workers static hosting (CSP header configuration, native SPA routing, build environment).
-- **[`.agents/rules/contact-details.md`](.agents/rules/contact-details.md)**: Global contact and WhatsApp business details standard (`+60 11-3071 9502`).
-- **[`CLOUDFLARE.md`](CLOUDFLARE.md)**: Quick-reference deployment guide for Cloudflare static configuration (`wrangler.jsonc`, `public/_headers`, & `200.html`).
+### Key Visual & UX Design Principles:
+- **Brutalist Grids & Sharp Aesthetics**: 2px/4px solid borders, zero border-radius pills, high-visibility hazard accents, and industrial monospace metrics.
+- **Physics-Based Canvas**: GSAP cargo box physics engine with dynamic `Stack`, `Wall`, and `Pyramid` container formation animations.
+- **Anti-AI-Slop Icon Policy**: Only crisp vector stroke iconography (`lucide-react`) with strict stroke weight limits (1.5px - 2.5px), zero glossy 3D clipart or sparkle bloat.
+- **Mobile First & Cross-Platform Ergonomics**: Tested and optimized across iOS and Android viewports with zero text truncation or horizontal overflow.
+
+---
+
+## 🛠️ Global Skills & Architecture Enforced
+
+This repository adheres to active Antigravity engineering standards and skills:
+
+1. **`global-setup`**:
+   - Enforces Cloudflare Pages edge security headers ([`public/_headers`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/public/_headers)), synchronized Content Security Policy (CSP) meta tags ([`index.html`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/index.html)), SPA fallback routing ([`public/_redirects`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/public/_redirects)), and form field accessibility standards.
+2. **`cloudflare-setup`**:
+   - Configures Cloudflare static hosting parameters (`NODE_VERSION=20`, `dist/` production bundle output, zero `unsafe-eval` CSP policy).
+3. **`compact-ui-design`**:
+   - Enforces 4px/8px modular grid rhythm, restrained typography hierarchy, tactical data tags (`[SPEC: 1-5 BEDROOM HOUSES]`), and single-line navbar text standards.
+4. **`design-director` / `ui-ux-pro-max`**:
+   - Enforces unique industrial brand aesthetic, GSAP-powered motion presets, accessible canvas layouts, and high-conversion pre-configured WhatsApp booking flows.
+
+---
+
+## 🚀 Key Features & Operational Modules
+
+1. **Sticky High-Visibility Header Navbar** ([`Navbar.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/Navbar.tsx)):
+   - Smooth top-scroll on logo click, unified hash navigation, and mobile menu drawer.
+2. **Hero Tactical Command Panel** ([`HeroSection.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/HeroSection.tsx)):
+   - Instant dispatch metric ticker, operational status badges, and quick estimate triggers.
+3. **Interactive Operational Modules** ([`ServicesSection.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/ServicesSection.tsx)):
+   - **01 Home Moving**: Residential precision relocation & furniture assembly.
+   - **02 Office Moving**: Zero downtime commercial migration & IT rack crating.
+   - **03 Packing & Crating**: Military-grade ISPM-15 timber crate protection.
+   - **04 Secured Storage**: Climate-controlled 24/7 CCTV storage vaults.
+4. **Signature Box Physics Engine** ([`SignatureBoxComposer.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/SignatureBoxComposer.tsx)):
+   - Real-time GSAP spatial transformations, dynamic container load-balancing simulations (`Stack`, `Wall`, `Pyramid`), and scatter interactive physics.
+5. **Instant Volumetric Quote Calculator** ([`InstantQuoteCalculator.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/InstantQuoteCalculator.tsx)):
+   - Interactive room and distance sliders, property type modifiers, heavy item options, auto-fleet recommendation (`1-Ton Van`, `3-Ton Truck`, `5-Ton Hydraulic`), and automated WhatsApp dispatch payload generation.
+
+---
+
+## 💻 Tech Stack
+
+- **Framework**: React 19 + TypeScript
+- **Styling**: Tailwind CSS (Custom Industrial Palette & Brutalist Tokens)
+- **Animation**: GSAP (GreenSock Animation Platform) + Canvas Confetti
+- **Icons**: Lucide React
+- **Build Tool**: Vite 6
+- **Hosting Target**: Cloudflare Pages / Workers Static
+
+---
+
+## ⚡ Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Production build & TypeScript check
+npm run build
+```
+
+---
+
+## 📜 Documentation Manifest
+
+- **[`GEMINI.md`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/GEMINI.md)**: Main manifest linking project architecture standards.
+- **[`.agents/rules/project-standards.md`](file:///.agents/rules/project-standards.md)**: UI/UX standards, TypeScript guidelines, CSP rules, and accessibility.
+- **[`.agents/rules/cloudflare-setup.md`](file:///.agents/rules/cloudflare-setup.md)**: Cloudflare build requirements & security headers setup.
+- **[`.agents/rules/contact-details.md`](file:///.agents/rules/contact-details.md)**: Contact detail standards (`+60 11-3071 9502`).
+- **[`CLOUDFLARE.md`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/CLOUDFLARE.md)**: Quick Cloudflare deployment reference.
