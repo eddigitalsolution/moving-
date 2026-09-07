@@ -1,25 +1,47 @@
-# Cloudflare Deployment Checklist & Coding Frame
+# Cloudflare Pages & Workers Deployment Standard & Audit
 
-This document provides the standard checklist and coding frame for deploying Vite / React Single Page Applications (SPAs) to Cloudflare Pages & Workers without CSP issues, SPA 404 routing errors, or Wrangler code 100324 redirect loops.
+This document provides the standard checklist, coding frame, audit summary, and deployment guidelines for deploying Vite / React Single Page Applications (SPAs) to Cloudflare Pages & Workers without CSP issues, SPA 404 routing errors, or Wrangler redirect loops.
 
 ---
 
 ## 📋 Pre-Deployment Checklist
 
-- [ ] **1. Security Headers (`public/_headers`)**
-  - Verify `public/_headers` exists and specifies strict CSP (`default-src 'self' https: data: blob: 'unsafe-inline'`), `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, and `Referrer-Policy: strict-origin-when-cross-origin`.
-- [ ] **2. Synchronized CSP in HTML (`index.html`)**
+- [x] **1. Security Headers (`public/_headers`)**
+  - Verify `public/_headers` exists and specifies strict CSP (`default-src 'self' https: data: blob: 'unsafe-inline'`), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+- [x] **2. Synchronized CSP in HTML (`index.html`)**
   - Ensure the `<meta http-equiv="Content-Security-Policy">` in `index.html` matches the edge security headers in `public/_headers`.
-- [ ] **3. SPA Routing & Loop Prevention**
-  - Configure native `"not_found_handling": "single-page-application"` in `wrangler.jsonc`.
+- [x] **3. SPA Routing & Loop Prevention**
+  - Configure native `"pages_build_output_dir": "./dist"` and project name in `wrangler.jsonc`.
   - Use `postbuild` script to generate `dist/200.html` and clean up `_redirects` to avoid Wrangler infinite redirect loops (`code 100324`).
-- [ ] **4. Form Input Accessibility & Security**
+- [x] **4. Form Input Accessibility & Security**
   - Verify all `<input>` elements contain explicit `autoComplete` attributes (e.g. `name`, `tel`, `email`, `off`).
-- [ ] **5. Build & Lint Verification**
-  - Execute linter/type check (`npm run lint` or `tsc`).
+- [x] **5. Build & Lint Verification**
   - Execute `npm run build` (`tsc && vite build`) to confirm clean compilation and asset bundling in `./dist`.
-- [ ] **6. Cloudflare Project Environment**
+- [x] **6. Cloudflare Project Environment**
   - Set `NODE_VERSION=20` in Cloudflare build settings or environment variables.
+
+---
+
+## 🔍 Codebase Audit Summary (`moving`)
+
+| Component / Layer | Audit Finding | Verified File Link | Status |
+|---|---|---|---|
+| **Framework & Build** | Vite 6 + React 19 + TypeScript compiling cleanly to `./dist`. | [`package.json`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/package.json) | **PASS** |
+| **Edge Header Security** | `public/_headers` active and synchronized with `<meta>` tag in `index.html` (zero `unsafe-eval`). | [`public/_headers`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/public/_headers) & [`index.html`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/index.html#L8-L10) | **PASS** |
+| **Edge Routing & Assets** | `wrangler.jsonc` configured with `"pages_build_output_dir": "./dist"` and project name `"moving"`. | [`wrangler.jsonc`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/wrangler.jsonc) | **PASS** |
+| **Postbuild Pipeline** | `postbuild` hook auto-creates `dist/200.html` and removes conflicting `_redirects` files. | [`package.json`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/package.json#L9) | **PASS** |
+| **Form Accessibility** | All form input elements feature explicit `autoComplete` attributes. | [`InstantQuoteCalculator.tsx`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/src/components/InstantQuoteCalculator.tsx) | **PASS** |
+
+---
+
+## 🚨 Dashboard Setting Safeguards
+
+When configuring Cloudflare Pages Git Integration in the Cloudflare Dashboard:
+
+- **Build command**: `npm run build`
+- **Build output directory**: `dist`
+- **Deploy command**: *(Leave BLANK - Cloudflare Pages handles deployment automatically)*
+- **Version command**: *(Leave BLANK)*
 
 ---
 
@@ -28,30 +50,27 @@ This document provides the standard checklist and coding frame for deploying Vit
 ### 1. `wrangler.jsonc` (Asset & Router Config)
 ```jsonc
 {
-  "name": "project-name",
+  "name": "moving",
   "compatibility_date": "2026-09-07",
-  "pages_build_output_dir": "./dist",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+  "pages_build_output_dir": "./dist"
 }
 ```
 
 ### 2. `public/_headers` (Edge Security Policy)
 ```http
-/*
-  Content-Security-Policy: default-src 'self' https: data: blob: 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https: wss:;
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Referrer-Policy: strict-origin-when-cross-origin
+/* Cloudflare Pages Security Headers */
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https: ws: wss:; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none';
 ```
 
 ### 3. `index.html` (Local & Fallback CSP Meta Tag)
 ```html
 <meta 
   http-equiv="Content-Security-Policy" 
-  content="default-src 'self' https: data: blob: 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https: wss:;" 
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https: ws: wss:; worker-src 'self' blob:; object-src 'none';" 
 />
 ```
 
@@ -62,7 +81,7 @@ This document provides the standard checklist and coding frame for deploying Vit
     "dev": "vite",
     "build": "tsc && vite build",
     "postbuild": "node -e \"const fs = require('fs'); fs.copyFileSync('dist/index.html', 'dist/200.html'); ['dist/_redirects','dist/.assetsignore','dist/wrangler.json'].forEach(f => { try { fs.unlinkSync(f); } catch(_) {} });\"",
-    "deploy": "npm run build && wrangler pages deploy dist",
+    "deploy": "npm run build",
     "lint": "tsc",
     "preview": "vite preview"
   }
@@ -79,7 +98,7 @@ This document provides the standard checklist and coding frame for deploying Vit
    npm run preview
    ```
 
-2. **Deploy to Cloudflare via Wrangler CLI**:
+2. **Deploy via Git Push**:
    ```bash
-   npm run deploy
+   git push origin main
    ```
