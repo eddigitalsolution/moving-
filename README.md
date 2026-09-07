@@ -63,7 +63,9 @@ This repository adheres to active Antigravity engineering standards and skills:
 
 ---
 
-## ⚡ Local Development
+---
+
+## ⚡ Local Development & Cloudflare Deployment
 
 ```bash
 # Install dependencies
@@ -74,7 +76,28 @@ npm run dev
 
 # Production build & TypeScript check
 npm run build
+
+# Deploy to Cloudflare Pages via Wrangler
+npm run deploy
 ```
+
+---
+
+## 📋 Cloudflare Deployment Checklist
+
+- [x] **1. Security Headers (`public/_headers`)**
+  - Verify `public/_headers` specifies strict CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, and `Referrer-Policy: strict-origin-when-cross-origin`.
+- [x] **2. Synchronized CSP Meta Tag (`index.html`)**
+  - Ensure `<meta http-equiv="Content-Security-Policy">` in `index.html` matches `public/_headers`.
+- [x] **3. SPA Routing & Loop Prevention (`wrangler.jsonc`)**
+  - Configure `"not_found_handling": "single-page-application"` in `wrangler.jsonc`.
+  - Use `postbuild` script (`package.json`) to auto-generate `dist/200.html` and clean conflicting `_redirects` to avoid Wrangler infinite redirect loops (`code 100324`).
+- [x] **4. Form Input Accessibility & Security**
+  - Verify all `<input>` elements contain explicit `autoComplete` attributes.
+- [x] **5. Build & Deployment Scripts (`package.json`)**
+  - `"build"`: `tsc && vite build`
+  - `"postbuild"`: `node -e "const fs = require('fs'); fs.copyFileSync('dist/index.html', 'dist/200.html'); ['dist/_redirects','dist/.assetsignore','dist/wrangler.json'].forEach(f => { try { fs.unlinkSync(f); } catch(_) {} });"`
+  - `"deploy"`: `npm run build && wrangler pages deploy dist`
 
 ---
 
@@ -84,4 +107,5 @@ npm run build
 - **[`.agents/rules/project-standards.md`](file:///.agents/rules/project-standards.md)**: UI/UX standards, TypeScript guidelines, CSP rules, and accessibility.
 - **[`.agents/rules/cloudflare-setup.md`](file:///.agents/rules/cloudflare-setup.md)**: Cloudflare build requirements & security headers setup.
 - **[`.agents/rules/contact-details.md`](file:///.agents/rules/contact-details.md)**: Contact detail standards (`+60 11-3071 9502`).
-- **[`CLOUDFLARE.md`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/CLOUDFLARE.md)**: Quick Cloudflare deployment reference.
+- **[`CLOUDFLARE.md`](file:///c:/Users/User/Desktop/Progamming/antigravity/moving/CLOUDFLARE.md)**: Cloudflare Pages deployment reference.
+
