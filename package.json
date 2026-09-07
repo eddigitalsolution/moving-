@@ -9,7 +9,7 @@
     "postbuild": "node -e \"const fs = require('fs'); fs.copyFileSync('dist/index.html', 'dist/200.html'); ['dist/_redirects','dist/.assetsignore','dist/wrangler.json'].forEach(f => { try { fs.unlinkSync(f); } catch(_) {} });\"",
     "lint": "tsc",
     "preview": "vite preview",
-    "deploy": "npm run build && npx wrangler pages deploy dist"
+    "deploy": "npm run build"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
