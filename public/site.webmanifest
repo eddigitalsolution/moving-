@@ -1,0 +1,22 @@
+{
+  "name": "MOVE EVERYTHING | Industrial Brutalist Moving Co.",
+  "short_name": "MOVE.",
+  "description": "Move without the chaos. Zero downtime residential, commercial, office moving, precision crate packing, and heavy logistics storage.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#FF5500",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
