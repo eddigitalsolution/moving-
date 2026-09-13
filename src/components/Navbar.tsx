@@ -17,6 +17,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCalculator }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMobileMenuOpen(false);
+    setTimeout(() => {
+      window.location.href = window.location.pathname;
+    }, 50);
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${scrolled ? 'bg-industrial-black/95 backdrop-blur-md border-b border-industrial-border py-3' : 'bg-industrial-black/80 backdrop-blur-sm py-4 border-b border-industrial-border/40'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,13 +33,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCalculator }) => {
           
           {/* Logo */}
           <a 
-            href="#" 
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              history.pushState(null, '', window.location.pathname);
-            }} 
+            href="/" 
+            onClick={handleLogoClick} 
             className="flex items-center gap-2.5 group focus:outline-none"
+            aria-label="MOVE EVERYTHING - Go to top and refresh page"
           >
             <div className="w-9 h-9 bg-industrial-amber text-industrial-black font-extrabold flex items-center justify-center border-2 border-industrial-black shadow-brutal-sm group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform">
               <Package className="w-5 h-5 stroke-[2.5]" />
@@ -43,12 +49,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCalculator }) => {
           {/* Nav Links */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-7 font-mono text-xs font-bold tracking-wider text-industrial-light/90">
             <a 
-              href="#" 
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                history.pushState(null, '', window.location.pathname);
-              }} 
+              href="/" 
+              onClick={handleLogoClick} 
               className="hover:text-industrial-amber transition-colors uppercase whitespace-nowrap"
             >
               Home
@@ -107,13 +109,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCalculator }) => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-industrial-black border-b-2 border-industrial-amber px-6 py-6 font-mono flex flex-col gap-3 max-h-[85vh] overflow-y-auto">
           <a 
-            href="#" 
-            onClick={(e) => { 
-              e.preventDefault(); 
-              setMobileMenuOpen(false); 
-              window.scrollTo({ top: 0, behavior: 'smooth' }); 
-              history.pushState(null, '', window.location.pathname);
-            }} 
+            href="/" 
+            onClick={handleLogoClick} 
             className="text-base uppercase text-industrial-light hover:text-industrial-amber py-1.5 border-b border-industrial-border"
           >
             Home

@@ -45,7 +45,7 @@ Please dispatch quote officer to my location.`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-industrial-black/90 backdrop-blur-md overflow-y-auto max-w-full">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-industrial-black/90 backdrop-blur-md overflow-y-auto max-w-full" role="dialog" aria-modal="true" aria-labelledby="calculator-title">
       <div className="bg-industrial-dark border-2 sm:border-4 border-industrial-amber w-full max-w-[calc(100vw-16px)] sm:max-w-3xl p-3.5 sm:p-8 shadow-brutal-amber relative my-2 sm:my-8 overflow-x-hidden">
         
         {/* Close Button */}
@@ -63,7 +63,7 @@ Please dispatch quote officer to my location.`;
             <Calculator className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             <span className="truncate">VOLUMETRIC DISPATCH ESTIMATOR v3.2</span>
           </div>
-          <h2 className="font-headline font-black text-xl sm:text-4xl uppercase text-industrial-light leading-tight">
+          <h2 id="calculator-title" className="font-headline font-black text-xl sm:text-4xl uppercase text-industrial-light leading-tight">
             CALCULATE <span className="text-industrial-amber">MOVE COST.</span>
           </h2>
         </div>
@@ -115,6 +115,7 @@ Please dispatch quote officer to my location.`;
                 className="w-full accent-industrial-amber cursor-pointer"
                 id="calc-room-slider"
                 name="calc-room-slider"
+                aria-label="Select room count"
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-industrial-light/50">
                 <span>1 Room</span>
@@ -137,6 +138,7 @@ Please dispatch quote officer to my location.`;
                 className="w-full accent-industrial-amber cursor-pointer"
                 id="calc-distance-slider"
                 name="calc-distance-slider"
+                aria-label="Select transport distance in kilometers"
               />
               <div className="flex justify-between text-[9px] sm:text-[10px] text-industrial-light/50">
                 <span>5 KM</span>
